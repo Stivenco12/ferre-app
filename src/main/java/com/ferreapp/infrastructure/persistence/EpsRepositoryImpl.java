@@ -1,5 +1,6 @@
 package com.ferreapp.infrastructure.persistence;
 
+import java.security.KeyStore.Entry;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 import com.ferreapp.domain.entities.Eps;
@@ -22,6 +23,15 @@ public class EpsRepositoryImpl implements EpsRepository {
     public EpsRepositoryImpl(ConnectionDb connectionDb) {
         this.connectionDb = connectionDb;
     }
+
+    @Override
+    public Map<Integer, Eps> findFirstByName(String texto, Map<Integer, Eps> epsMap) {
+        return epsMap.entrySet().stream().filter(h -> h.getValue().getName().startsWith(texto)).collect(Collectors.toMap(
+                                                                                                Map.Entry::getKey,
+                                                                                                Map.Entry::getValue));
+        
+    }
+
     @Override
     public void save(Eps eps) {
         String sqlInsert = "INSERT INTO eps (name) VALUES (?)";
@@ -116,12 +126,7 @@ public class EpsRepositoryImpl implements EpsRepository {
             .collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<Eps> findFirstByName(String name) {
-        return findAllAsMap().values().stream()
-            .filter(eps -> eps.getName().equalsIgnoreCase(name))
-            .findFirst();
-    }
+    
 
     @Override
     public Map<Integer, Eps> findByIds(List<Integer> ids) {

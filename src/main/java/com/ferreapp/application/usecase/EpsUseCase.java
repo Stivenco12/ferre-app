@@ -2,7 +2,7 @@ package com.ferreapp.application.usecase;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 import com.ferreapp.domain.entities.Eps;
 import com.ferreapp.domain.repositories.EpsRepository;
@@ -45,8 +45,8 @@ public class EpsUseCase {
         return epsRepository.findByNameContaining(termino);
     }
     
-    public Optional<Eps> buscarPorNombreExacto(String nombre) {
-        return epsRepository.findFirstByName(nombre);
+    public Map<Integer,Eps> buscarPorNombreExacto(String name, Map<Integer,Eps> eps ) {
+        return epsRepository.findFirstByName(name, eps);
     }
     
     public Map<Integer, Eps> obtenerEpsPorIds(List<Integer> ids) {

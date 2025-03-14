@@ -3,7 +3,6 @@ package com.ferreapp.infrastructure.adapter.ui;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -16,6 +15,10 @@ import com.ferreapp.infrastructure.persistence.EpsRepositoryImpl;
 public class EpsUI {
     EpsRepository repository = new EpsRepositoryImpl(ConnectMysqlFactory.crearConexion());
     EpsUseCase  useCase = new EpsUseCase(repository);
+
+    public Map<Integer,Eps> findFirstByName(String cosa1, Map<Integer,Eps> cosa2){
+        return useCase.buscarPorNombreExacto(cosa1,cosa2);
+    }
 
     public void CreateEps() {
         try (Scanner sc = new Scanner(System.in)) {
@@ -57,14 +60,14 @@ public class EpsUI {
         }
     }
         
-    public void FindEpsByNameExact() {
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("Ingrese el nombre de la EPS");
-            String name = sc.nextLine();
-            Optional<Eps> nuevaEps = useCase.buscarPorNombreExacto(name);
-            nuevaEps.ifPresent(eps -> System.out.println("Encontrada: " + eps.getName()));
-        }
-    }
+    // public void FindEpsByNameExact() {
+    //     try (Scanner sc = new Scanner(System.in)) {
+    //         System.out.println("Ingrese el nombre de la EPS");
+    //         String name = sc.nextLine();
+    //         Map<Integer,Eps> nuevaEps = useCase.buscarPorNombreExacto();
+    //       //  nuevaEps.ifPresent(eps -> System.out.println("Encontrada: " + eps.getName()));
+    //     }
+    // }
 
     public void FindEpsByIds() {
         try (Scanner sc = new Scanner(System.in)) {

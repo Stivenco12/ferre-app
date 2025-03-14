@@ -2,7 +2,7 @@ package com.ferreapp.domain.repositories;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 import com.ferreapp.domain.entities.Eps;
 
@@ -23,7 +23,7 @@ public interface EpsRepository {
     /**
      * Encuentra la primera EPS que coincida exactamente con el nombre
      */
-    Optional<Eps> findFirstByName(String name);
+    Map<Integer,Eps> findFirstByName(String name,Map<Integer, Eps> epsMap);
     
     /**
      * Busca múltiples EPS por sus IDs

@@ -9,9 +9,9 @@ public class Eps {
     }
 
     
-    public Eps(int id, String name) {
+    public Eps(int id, String nombre) {
         this.id = id;
-        this.name = name;
+        this.name = nombre;
     }
 
 
